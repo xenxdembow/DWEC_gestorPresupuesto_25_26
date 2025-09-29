@@ -48,8 +48,16 @@ function anyadirGasto(gasto){
     idGasto ++;
     gastos.push(gasto)
 }
-function borrarGasto(){
-
+function borrarGasto(id){
+    for(let i = 0; i < gastos.length; i++)
+    {
+        if(id = gastos[i].id)
+        {
+            gastos.splice(i,1)
+            return gastos
+        }
+        return gastos
+    }
 }
 function calcularTotalGastos(){
 
