@@ -51,7 +51,7 @@ function anyadirGasto(gasto){
 function borrarGasto(id){
     for(let i = 0; i < gastos.length; i++)
     {
-        if(id = gastos[i].id)
+        if(id == gastos[i].id)
         {
             gastos.splice(i,1)
             return gastos
