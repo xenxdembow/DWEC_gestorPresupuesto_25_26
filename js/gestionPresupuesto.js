@@ -69,9 +69,9 @@ Etiquetas:
             for(let i = 0; i < etiqueta.length; i++)
             {
                 let num = this.etiquetas.indexOf(etiqueta[i], 0)
-                if(num => 0)
+                if(num >= 0)
                 {
-                    this.etiquetas.splice(num - 1, 1)
+                    this.etiquetas.splice(num, 1)
                 }
             }
         }
