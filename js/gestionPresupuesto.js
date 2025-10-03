@@ -58,6 +58,23 @@ Etiquetas:
                 this.fecha = fechaParseada
             }  
         }
+        this.anyadirEtiquetas = function(...etiqueta){
+            for(let i = 0; i < etiqueta.length; i++)
+            {
+                if(!this.etiquetas.includes(etiqueta[i], 0))
+                    this.etiquetas.push(etiqueta[i])
+            }
+        }
+        this.borrarEtiquetas = function(...etiqueta){
+            for(let i = 0; i < etiqueta.length; i++)
+            {
+                let num = this.etiquetas.indexOf(etiqueta[i], 0)
+                if(num => 0)
+                {
+                    this.etiquetas.splice(num - 1, 1)
+                }
+            }
+        }
 }
 
 function listarGastos(){
