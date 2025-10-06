@@ -24,15 +24,7 @@
    A continuación se muestran los enlaces a los enunciados de cada una de las prácticas:
    
   - [[./enunciados/introduccion_js.org][Introducción a JavaScript]]
-<<<<<<< HEAD
   - [[./enunciados/fundamentos_js_I.org][Fundamentos de JS I]]
-<<<<<<< HEAD
-=======
-  - [[./enunciados/fundamentos_js_I.org][Fundamentos de JS I]]
-  - [[./enunciados/fundamentos_js_II.org][Fundamentos de JS II]]
->>>>>>> a02da7e635aeab7bee924e9116aa48bb2818d7fe
-=======
   - [[./enunciados/fundamentos_js_II.org][Fundamentos de JS II]]
   - [[./enunciados/fundamentos_js_III.org][Fundamentos de JavaScript III]]
-  
->>>>>>> f0417cc735b1a6688941e313e201eb5564c02322
+ 
