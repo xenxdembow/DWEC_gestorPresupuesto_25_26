@@ -75,6 +75,33 @@ Etiquetas:
                 }
             }
         }
+        this.obtenerPeriodoAgrupacion = function(periodo){
+            let fechaFinal = new Date(this.fecha)
+            if(periodo == "dia")
+            {
+                let result = `${fechaFinal.getFullYear()}`
+                if(fechaFinal.getMonth() + 1 < 10)
+                    result += `-0${fechaFinal.getMonth() + 1}`;
+                else
+                    result += `-${fechaFinal.getMonth() + 1}`;
+
+                if(fechaFinal.getDate() < 10)
+                    result += `-0${fechaFinal.getDate()}`;
+                else
+                    result += `-${fechaFinal.getDate()}`
+                return result;
+            }
+            else if(periodo == "mes")
+            {
+                if(fechaFinal.getMonth() + 1 < 10)
+                    return(`${fechaFinal.getFullYear()}-0${fechaFinal.getMonth() + 1}`)
+                return(`${fechaFinal.getFullYear()}-${fechaFinal.getMonth() + 1}`)
+            }
+            else
+            {
+                return(fechaFinal.getFullYear())
+            }
+        }
 }
 
 function listarGastos(){
@@ -104,6 +131,12 @@ function calcularTotalGastos(){
 function calcularBalance(){
     return presupuesto - calcularTotalGastos();
 }
+function filtrarGastos(){
+    
+}
+function agruparGastos(){
+
+}
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
 // Si al obtener el código de una práctica se genera un conflicto, por favor incluye todo el código que aparece aquí debajo
@@ -115,5 +148,7 @@ export   {
     anyadirGasto,
     borrarGasto,
     calcularTotalGastos,
-    calcularBalance
+    calcularBalance,
+    filtrarGastos,
+    agruparGastos
 }
