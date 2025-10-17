@@ -163,44 +163,34 @@ function filtrarGastos(filtros) {
       return true;
     })
 }
-function obtenerPeriodoAgrupacion(fecha, periodo = "mes") {
-    const d = new Date(fecha);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, "0");
-    const day = String(d.getDate()).padStart(2, "0");
+function agruparGastos(periodo = "mes", etiquetas = [], fechaDesde, fechaHasta = new Date()) {
+    let filtros = {
+      etiquetasTiene: etiquetas,
+      fechaDesde: fechaDesde,
+      fechaHasta: fechaHasta
+    };
+    let gastosFiltrados = filtrarGastos(filtros);
+    function obtenerPeriodoAgrupacion(fecha, periodo) {
+      let f = new Date(fecha);
+      let año = f.getFullYear();
+      let mes = String(f.getMonth() + 1).padStart(2, "0");
+      let dia = String(f.getDate()).padStart(2, "0");
   
-    switch (periodo) {
-      case "dia":
-        return `${year}-${month}-${day}`;
-      case "mes":
-        return `${year}-${month}`;
-      case "anyo":
-      case "año":
-        return `${year}`;
-      default:
-        return `${year}-${month}`;
-    }
-  }
-function agruparGastos(gastos, periodo = "mes", etiquetas = [], fechaDesde, fechaHasta) {
-    // 1. Filtrar gastos
-    const gastosFiltrados = filtrarGastos(gastos, etiquetas, fechaDesde, fechaHasta);
-  
-    // 2. Agrupar con reduce
-    const resultado = gastosFiltrados.reduce((acc, gasto) => {
-      const periodoClave = obtenerPeriodoAgrupacion(gasto.fecha, periodo);
-  
-      // Si no existe la clave, inicializamos
-      if (!acc[periodoClave]) {
-        acc[periodoClave] = 0;
+      switch (periodo) {
+        case "dia":
+          return `${año}-${mes}-${dia}`;
+        case "anyo":
+          return `${año}`;
+        case "mes":
+        default:
+          return `${año}-${mes}`;
       }
-  
-      // Sumamos el valor del gasto
-      acc[periodoClave] += gasto.monto || gasto.valor || 0;
-  
+    }
+    let resultado = gastosFiltrados.reduce((acc, gasto) => {
+      let clave = obtenerPeriodoAgrupacion(gasto.fecha, periodo);
+      acc[clave] = (acc[clave] || 0) + gasto.valor;
       return acc;
     }, {});
-  
-    // 3. Devolver el objeto con los resultados
     return resultado;
   }
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
