@@ -77,33 +77,35 @@ Etiquetas:
         }
         this.obtenerPeriodoAgrupacion = function(periodo){
             let fechaFinal = new Date(this.fecha)
-            if(periodo == "dia")
-            {
-                let result = `${fechaFinal.getFullYear()}`
-                if(fechaFinal.getMonth() + 1 < 10)
-                    result += `-0${fechaFinal.getMonth() + 1}`;
-                else
-                    result += `-${fechaFinal.getMonth() + 1}`;
-
-                if(fechaFinal.getDate() < 10)
-                    result += `-0${fechaFinal.getDate()}`;
-                else
-                    result += `-${fechaFinal.getDate()}`
-                return result;
-            }
-            else if(periodo == "mes")
-            {
-                if(fechaFinal.getMonth() + 1 < 10)
-                    return(`${fechaFinal.getFullYear()}-0${fechaFinal.getMonth() + 1}`)
-                return(`${fechaFinal.getFullYear()}-${fechaFinal.getMonth() + 1}`)
-            }
-            else
-            {
-                return(fechaFinal.getFullYear())
-            }
+            return(addCeros(periodo, fechaFinal))
         }
 }
+function addCeros(periodo, fechaFinal){
+    if(periodo == "dia")
+        {
+            let result = `${fechaFinal.getFullYear()}`
+            if(fechaFinal.getMonth() + 1 < 10)
+                result += `-0${fechaFinal.getMonth() + 1}`;
+            else
+                result += `-${fechaFinal.getMonth() + 1}`;
 
+            if(fechaFinal.getDate() < 10)
+                result += `-0${fechaFinal.getDate()}`;
+            else
+                result += `-${fechaFinal.getDate()}`
+            return result;
+        }
+        else if(periodo == "mes")
+        {
+            if(fechaFinal.getMonth() + 1 < 10)
+                return(`${fechaFinal.getFullYear()}-0${fechaFinal.getMonth() + 1}`)
+            return(`${fechaFinal.getFullYear()}-${fechaFinal.getMonth() + 1}`)
+        }
+        else
+        {
+            return(fechaFinal.getFullYear())
+        }
+}
 function listarGastos(){
     return gastos;
 }
@@ -161,9 +163,46 @@ function filtrarGastos(filtros) {
       return true;
     })
 }
-function agruparGastos(){
-
-}
+function obtenerPeriodoAgrupacion(fecha, periodo = "mes") {
+    const d = new Date(fecha);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+  
+    switch (periodo) {
+      case "dia":
+        return `${year}-${month}-${day}`;
+      case "mes":
+        return `${year}-${month}`;
+      case "anyo":
+      case "año":
+        return `${year}`;
+      default:
+        return `${year}-${month}`;
+    }
+  }
+function agruparGastos(gastos, periodo = "mes", etiquetas = [], fechaDesde, fechaHasta) {
+    // 1. Filtrar gastos
+    const gastosFiltrados = filtrarGastos(gastos, etiquetas, fechaDesde, fechaHasta);
+  
+    // 2. Agrupar con reduce
+    const resultado = gastosFiltrados.reduce((acc, gasto) => {
+      const periodoClave = obtenerPeriodoAgrupacion(gasto.fecha, periodo);
+  
+      // Si no existe la clave, inicializamos
+      if (!acc[periodoClave]) {
+        acc[periodoClave] = 0;
+      }
+  
+      // Sumamos el valor del gasto
+      acc[periodoClave] += gasto.monto || gasto.valor || 0;
+  
+      return acc;
+    }, {});
+  
+    // 3. Devolver el objeto con los resultados
+    return resultado;
+  }
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
 // Si al obtener el código de una práctica se genera un conflicto, por favor incluye todo el código que aparece aquí debajo
