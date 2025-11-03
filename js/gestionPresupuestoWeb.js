@@ -32,6 +32,11 @@ function mostrarGastoWeb(gastos, id){
         contenedor.appendChild(div);
     }
 }
+function mostrarGastosAgrupadosWeb(id, agrup, periodo){
+    let contenedor = document.createElement("div");
+    contenedor.classList.add("agrupacion");
+    
+}
 export{
     mostrarDatoenId,
     mostrarGastoWeb,
