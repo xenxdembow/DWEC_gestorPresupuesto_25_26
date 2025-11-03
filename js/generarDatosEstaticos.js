@@ -17,4 +17,9 @@ Js1.anyadirGasto(gasto5);
 Js1.anyadirGasto(gasto6);
 Js2.mostrarDatoenId(Js1.calcularTotalGastos(), "gastos-totales");
 Js2.mostrarDatoenId(Js1.calcularBalance(), "balance-total");
+Js2.mostrarGastoWeb(Js1.listarGastos(), "listado-gastos-completo");
+Js2.mostrarGastoWeb(Js1.filtrarGastos({fechaDesde : "01/10/2021", fechaHasta : "31/10/2021"}), "listado-gastos-filtrado-1");
+Js2.mostrarGastoWeb(Js1.filtrarGastos({valorMinimo : "50"}), "listado-gastos-filtrado-2");
+Js2.mostrarGastoWeb(Js1.filtrarGastos({valorMinimo : "200", etiquetasTiene : ["seguros"]}), "listado-gastos-filtrado-3");
+Js2.mostrarGastoWeb(Js1.filtrarGastos({valorMaximo : "50", etiquetasTiene : ["comida", "transporte"]}), "listado-gastos-filtrado-4");
 
