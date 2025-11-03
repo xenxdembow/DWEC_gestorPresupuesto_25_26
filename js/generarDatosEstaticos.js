@@ -1,10 +1,20 @@
 
-import * as Js1 from './gestionPresupuesto.js';
-import * as Js2 from './gestionPresupuestosWeb.js';
-function generarDatosEstaticos() {
-    Js1.actualizarPresupuesto(1000);
-    Js2.mostrarDatosenId(1);
-}
-function actualizarPresupuesto(val) {
-    Js1.actualizarPresupuesto(val);
-}
+import * as Js1 from "./gestionPresupuesto.js";
+import * as Js2 from "./gestionPresupuestoWeb.js";
+Js1.actualizarPresupuesto(1500);
+Js2.mostrarDatoenId(Js1.mostrarPresupuesto(), "presupuesto");
+let gasto1 = new Js1.CrearGasto("Compra carne", 23.44, "2021-10-06", "casa", "comida");
+let gasto2 = new Js1.CrearGasto("Compra fruta y verdura", 14.25, "2021-09-06", "supermercado", "comida");
+let gasto3 = new Js1.CrearGasto("Bonobús", 18.60, "2020-05-26", "transporte");
+let gasto4 = new Js1.CrearGasto("Gasolina", 60.42, "2021-10-08", "transporte", "gasolina");
+let gasto5 = new Js1.CrearGasto("Seguro hogar", 206.45, "2021-09-26", "casa", "seguros");
+let gasto6 = new Js1.CrearGasto("Seguro coche", 195.78, "2021-10-06", "transporte", "seguros");
+Js1.anyadirGasto(gasto1);
+Js1.anyadirGasto(gasto2);
+Js1.anyadirGasto(gasto3);
+Js1.anyadirGasto(gasto4);
+Js1.anyadirGasto(gasto5);
+Js1.anyadirGasto(gasto6);
+Js2.mostrarDatoenId(Js1.calcularTotalGastos(), "gastos-totales");
+Js2.mostrarDatoenId(Js1.calcularBalance(), "balance-total");
+
