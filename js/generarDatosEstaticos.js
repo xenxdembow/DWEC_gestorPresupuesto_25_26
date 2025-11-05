@@ -21,4 +21,7 @@ Js2.mostrarGastoWeb(Js1.filtrarGastos({fechaDesde : "2021-09-01", fechaHasta : "
 Js2.mostrarGastoWeb(Js1.filtrarGastos({valorMinimo : "50"}), "listado-gastos-filtrado-2");
 Js2.mostrarGastoWeb(Js1.filtrarGastos({valorMinimo : "200", etiquetasTiene : ["seguros"]}), "listado-gastos-filtrado-3");
 Js2.mostrarGastoWeb(Js1.filtrarGastos({valorMaximo : "50", etiquetasTiene : ["comida", "transporte"]}), "listado-gastos-filtrado-4");
+Js2.mostrarGastosAgrupadosWeb("agrupacion-dia",Js1.agruparGastos("dia"),"día");
+Js2.mostrarGastosAgrupadosWeb("agrupacion-mes",Js1.agruparGastos("mes"), "mes");
+Js2.mostrarGastosAgrupadosWeb("agrupacion-anyo",Js1.agruparGastos("año"), "año");
 

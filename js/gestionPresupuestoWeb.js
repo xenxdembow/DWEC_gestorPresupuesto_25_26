@@ -39,7 +39,7 @@ function mostrarGastosAgrupadosWeb(id, agrup, periodo){
     let h1 = document.createElement("h1");
     h1.innerHTML = `Gastos agrupados por ${periodo}`;
     contenedor.appendChild(h1);
-    for(let i = 0; i < agrup.length; i++)
+    for(let values of Object.values(agrup))
     {
         let dato = document.createElement("div");
         dato.classList.add("agrupacion-dato");
@@ -47,8 +47,7 @@ function mostrarGastosAgrupadosWeb(id, agrup, periodo){
         let nombre = document.createElement("span")
         let valor = document.createElement("span")
         nombre.classList.add("agrupacion-dato-clave");
-        valor.classList.add("agrupacion-dato-clave");
-        let values = Objects.values(agrup);
+        valor.classList.add("agrupacion-dato-valor");
         nombre.innerHTML = values[0];
         valor.innerHTML = values[1];
         dato.appendChild(nombre);

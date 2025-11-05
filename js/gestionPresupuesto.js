@@ -147,35 +147,21 @@ function filtrarGastos(filtro){
       ))
   ));
 }
-function agruparGastos(periodo = "mes", etiquetas = [], fechaDesde, fechaHasta = new Date()) {
-    let filtros = {
+function agruparGastos(periodo, etiquetas, fechaDesde, fechaHasta) {
+    let filtrados = filtrarGastos({
       etiquetasTiene: etiquetas,
       fechaDesde: fechaDesde,
       fechaHasta: fechaHasta
-    };
-    let gastosFiltrados = filtrarGastos(filtros);
-    function obtenerPeriodoAgrupacion(fecha, periodo) {
-      let f = new Date(fecha);
-      let año = f.getFullYear();
-      let mes = String(f.getMonth() + 1).padStart(2, "0");
-      let dia = String(f.getDate()).padStart(2, "0");
-  
-      switch (periodo) {
-        case "dia":
-          return `${año}-${mes}-${dia}`;
-        case "anyo":
-          return `${año}`;
-        case "mes":
-        default:
-          return `${año}-${mes}`;
-      }
-    }
-    let resultado = gastosFiltrados.reduce((acc, gasto) => {
-      let clave = obtenerPeriodoAgrupacion(gasto.fecha, periodo);
-      acc[clave] = (acc[clave] || 0) + gasto.valor;
-      return acc;
+    });
+    let result = filtrados.reduce((acumulador, gasto) => {
+        let clave = gasto.obtenerPeriodoAgrupacion(periodo)
+        if(acumulador[clave] != null)
+            acumulador[clave] += gasto.valor;
+        else
+            acumulador[clave] = gasto.valor;
+        return acumulador;
     }, {});
-    return resultado;
+    return result;
   }
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
