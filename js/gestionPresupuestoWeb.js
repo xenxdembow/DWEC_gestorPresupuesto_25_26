@@ -1,3 +1,5 @@
+import * as GP from "./gestionPresupuesto.js";
+
 function mostrarDatoenId(valor, id){ 
     document.getElementById(id).innerHTML = valor;
 }
@@ -56,6 +58,37 @@ function mostrarGastosAgrupadosWeb(id, agrup, periodo){
     }
     granContenedor.appendChild(contenedor);
 }
+function repintar(){
+    mostrarDatoenId(GP.mostrarPresupuesto(), "presupuesto");
+    mostrarDatoenId(GP.calcularTotalGastos(), "gastos-totales");
+    mostrarDatoenId(GP.calcularBalance(), "balance-total");
+    let div = document.getElementById("listado-gastos-completo");
+    div.innerHTML = "";
+    mostrarGastoWeb(GP.listarGastos(), "listado-gastos-completo");
+}
+let btnActualizar = document.getElementById("actualizarpresupuesto")
+btnActualizar.addEventListener("click", actualizarPresupuestoWeb)
+function actualizarPresupuestoWeb(){
+    let actualizar = prompt("Introduce el nuevo presupuesto:");
+    let presupuesto = parseInt(actualizar)
+    let presAct = document.getElementById("presupuesto");
+    presAct.innerHTML = `Tu presupuesto actual es de ${presupuesto} €`
+}
+let btnAñadir = document.getElementById("anyadirgasto");
+btnAñadir.addEventListener("click", nuevoGastoWeb);
+function nuevoGastoWeb(){
+    let des = prompt("Introduce la descripción que quieras:");
+    let val = prompt("Introduce el valor que desees:");
+    let fech = prompt("Introduce la fecha en formato year-month-day:");
+    let eti = prompt("Introduce las etiquetas que quieras, separadas por comas:");
+    val = Number(val);
+    fech = Date.parse(fech);
+    let etiArray = eti.split(",");
+    let newGasto = new GP.CrearGasto(des, val, fech, ...etiArray);
+    GP.anyadirGasto(newGasto);
+    repintar();
+}
+
 export{
     mostrarDatoenId,
     mostrarGastoWeb,
