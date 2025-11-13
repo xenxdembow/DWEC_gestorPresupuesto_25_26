@@ -27,10 +27,24 @@ function mostrarGastoWeb(gastos, id){
         eti.classList.add("gasto-etiquetas");
         let div = document.createElement("div");
         div.classList.add("gasto");
+        let btnEdit = document.createElement("button");
+        let btnDel = document.createElement("button");
+        btnEdit.classList.add("gasto-editar");
+        btnDel.classList.add("gasto-borrar");
+        btnEdit.innerHTML = "Editar"
+        btnDel.innerHTML = "Borrar"
+        let handleEdit = new EditarHandle();
+        let handleDel = new BorrarHandle();
+        handleEdit.gasto = gastos[j];
+        handleDel.gasto = gastos[j];
+        btnEdit.addEventListener("click", handleEdit);
+        btnDel.addEventListener("click", handleDel);
         div.appendChild(des);
         div.appendChild(fec);
         div.appendChild(val);
-        div.appendChild(eti)
+        div.appendChild(eti);
+        div.appendChild(btnEdit);
+        div.appendChild(btnDel);
         contenedor.appendChild(div);
     }
 }
@@ -98,11 +112,15 @@ function EditarHandle(){
         this.gasto.valor = Number(val);
         this.gasto.fecha = Date.parse(fech);
         this.gasto.etiquetas = eti.split(",");
-        this.gasto.actualizarDescripcion(this.gasto.descripcion);
-        this.gasto.actualizarValor(this.gasto.valor);
-        this.gasto.actualizarFecha(this.gasto.fecha);
-        this.gasto.anyadirEtiquetas(...this.gasto.etiquetas);
         repintar();
+    }
+}
+function BorrarHandle(){
+    this.handleEvent = function(event){
+        let id = this.gasto.idGasto;
+        
+        GP.borrarGasto(id);
+        repintar();   
     }
 }
 export{
