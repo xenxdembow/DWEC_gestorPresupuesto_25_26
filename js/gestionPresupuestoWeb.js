@@ -88,7 +88,23 @@ function nuevoGastoWeb(){
     GP.anyadirGasto(newGasto);
     repintar();
 }
-
+function EditarHandle(){
+    this.handleEvent = function(event){
+        let des = prompt("Introduce la descripción que quieras:");
+        let val = prompt("Introduce el valor que desees:");
+        let fech = prompt("Introduce la fecha en formato year-month-day:");
+        let eti = prompt("Introduce las etiquetas que quieras, separadas por comas:");
+        this.gasto.descripcion = des;
+        this.gasto.valor = Number(val);
+        this.gasto.fecha = Date.parse(fech);
+        this.gasto.etiquetas = eti.split(",");
+        this.gasto.actualizarDescripcion(this.gasto.descripcion);
+        this.gasto.actualizarValor(this.gasto.valor);
+        this.gasto.actualizarFecha(this.gasto.fecha);
+        this.gasto.anyadirEtiquetas(...this.gasto.etiquetas);
+        repintar();
+    }
+}
 export{
     mostrarDatoenId,
     mostrarGastoWeb,
