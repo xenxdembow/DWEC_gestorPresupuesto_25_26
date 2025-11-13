@@ -117,8 +117,7 @@ function EditarHandle(){
 }
 function BorrarHandle(){
     this.handleEvent = function(event){
-        let id = this.gasto.idGasto;
-        
+        let id = this.gasto.id; 
         GP.borrarGasto(id);
         repintar();   
     }
