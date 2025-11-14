@@ -17,9 +17,12 @@ function mostrarGastoWeb(gastos, id){
         val.innerHTML = gastos[j].valor;
         val.classList.add("gasto-valor");
         let eti = document.createElement("div");
+        let handleDel2 = new BorrarHandle();
+        handleDel2.gasto = gastos[j];
         for(let i = 0; i < gastos[j].etiquetas.length; i++)
         {
             let etiqueta = document.createElement("span");
+            etiqueta.addEventListener("click", handleDel2)
             etiqueta.innerHTML = gastos[j].etiquetas[i];
             etiqueta.classList.add("gasto-etiquetas-etiqueta");
             eti.appendChild(etiqueta);
@@ -119,6 +122,7 @@ function BorrarHandle(){
     this.handleEvent = function(event){
         let id = this.gasto.id; 
         GP.borrarGasto(id);
+        this.gasto.borrarEtiquetas();
         repintar();   
     }
 }
