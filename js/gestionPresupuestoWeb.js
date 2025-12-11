@@ -33,6 +33,7 @@ function mostrarGastoWeb(gastos, id){
         div.classList.add("gasto");
         let btnEdit = document.createElement("button");
         let btnDel = document.createElement("button");
+        let btnFormulario = document.getElementById("anyadirgasto-formulario");
         btnEdit.classList.add("gasto-editar");
         btnDel.classList.add("gasto-borrar");
         btnEdit.innerHTML = "Editar"
@@ -43,6 +44,7 @@ function mostrarGastoWeb(gastos, id){
         handleDel.gasto = gastos[j];
         btnEdit.addEventListener("click", handleEdit);
         btnDel.addEventListener("click", handleDel);
+        btnFormulario.addEventListener("click", nuevoGastoWebFormulario);
         div.appendChild(des);
         div.appendChild(fec);
         div.appendChild(val);
@@ -143,7 +145,7 @@ function nuevoGastoWebFormulario(event){
     var formulario = plantillaFormulario.querySelector("form");
     formulario.addEventListener("submit", function(event){
         event.preventDefault();
-        let form = e.currentTarget;
+        let form = event.currentTarget;
         let des = form.elements["descripcion"].value;
         let val = Number(form.elements["valor"].value);
         let fech = form.elements["fecha"].value;
@@ -163,6 +165,11 @@ function nuevoGastoWebFormulario(event){
     btnCancelar.addEventListener("click", cancelarHandler);
     event.currentTarget.setAttribute("disabled", true);
     document.getElementById("controlesprincipales").appendChild(plantillaFormulario);
+}
+function EditarHandleFormulario(){
+    this.handleEvent = function(event){
+        this.gasto 
+    }
 }
 export{
     mostrarDatoenId,
