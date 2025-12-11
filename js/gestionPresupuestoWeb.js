@@ -34,11 +34,11 @@ function mostrarGastoWeb(gastos, id){
         let btnEdit = document.createElement("button");
         let btnDel = document.createElement("button");
         let btnFormulario = document.getElementById("anyadirgasto-formulario");
-        btnEdit.classList.add("gasto-editar");
+        btnEdit.classList.add("gasto-editar-formulario");
         btnDel.classList.add("gasto-borrar");
         btnEdit.innerHTML = "Editar"
         btnDel.innerHTML = "Borrar"
-        let handleEdit = new EditarHandle();
+        let handleEdit = new EditarHandleFormulario();
         let handleDel = new BorrarHandle();
         handleEdit.gasto = gastos[j];
         handleDel.gasto = gastos[j];
@@ -169,7 +169,7 @@ function nuevoGastoWebFormulario(event){
 function GuardarEdicionHandle(){
     this.handleEvent = function(event){
         event.preventDefault();
-        let form = event.currentTarget();
+        let form = event.currentTarget;
         this.gasto.descripcion = form.elements["descripcion"].value;
         this.gasto.valor = Number(form.elements["valor"].value);
         this.gasto.fecha = Date.parse(form.elements["fecha"].value);
@@ -181,11 +181,22 @@ function GuardarEdicionHandle(){
 function EditarHandleFormulario(){
     this.handleEvent = function(event){
         let plantillaFormulario = document.getElementById("formulario-template").content.cloneNode(true);
-        var formulario = plantillaFormulario.querySelector("form");
-        let des = form.elements["descripcion"].value = this.gasto.descripcion;
-        let val = form.elements["valor"].value = this.gasto.valor;
-        let fech = form.elements["fecha"].value = this.gasto.fecha;
-        let eti = form.elements["etiquetas"].value = this.gasto.etiquetas.join(",");
+        var form = plantillaFormulario.querySelector("form");
+        form.elements["descripcion"].value = this.gasto.descripcion;
+        form.elements["valor"].value = this.gasto.valor;
+        form.elements["fecha"].value = this.gasto.fecha;
+        form.elements["etiquetas"].value = this.gasto.etiquetas.join(",");
+        let enviarHndle = new GuardarEdicionHandle();
+        enviarHndle.gasto = this.gasto;
+        form.addEventListener("submit", enviarHndle)
+        let btnCancelar = form.querySelector(".cancelar");
+        let cancelHandel = new CancelarFormularioHandle(); 
+        cancelHandel.formulario = form;
+        cancelHandel.botonPrincipal = event.currentTarget;
+        btnCancelar.addEventListener("click", cancelHandel);
+        event.currentTarget.setAttribute("disabled", true);
+        let divGasto = event.currentTarget.parentNode;
+        divGasto.appendChild(form);
     }
 }
 export{
