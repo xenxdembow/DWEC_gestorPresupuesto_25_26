@@ -199,8 +199,29 @@ function EditarHandleFormulario(){
         divGasto.appendChild(form);
     }
 }
+function filtrarGastosWeb(){
+    this.handleEvent = function(event){
+        event.preventDefault();
+        let form = event.currentTarget;
+        let des = form.elements["formulario-filtrado-descripcion"].value;
+        let minVal = form.elements["formulario-filtrado-valor-minimo"].value;
+        let maxVal = form.elements["formulario-filtrado-valor-maximo"].value;
+        let  fechaDesde = form.elements["formulario-filtrado-fecha-desde"].value;
+        let  fechaHasta = form.elements["formulario-filtrado-fecha-hasta"].value;
+        let  etis = form.elements["formulario-filtrado-etiquetas-tiene"].value;
+        if(etis.length != null)
+        {
+            etis = GP.transformarListadoEtiquetas(form.elements["formulario-filtrado-etiquetas-tiene"].value)
+        }
+        let resul = GP.filtrarGastos({fechaDesde : fechaDesde, fechaHasta : fechaHasta, valorMinimo : minVal, valorMaximo : maxVal, 
+                            descripcionContiene : des, etiquetasTiene : etis})
+        
+        mostrarGastoWeb("listado-gastos-completo", resul)
+    }
+}
 export{
     mostrarDatoenId,
     mostrarGastoWeb,
-    mostrarGastosAgrupadosWeb
+    mostrarGastosAgrupadosWeb,
+    filtrarGastosWeb
 }
