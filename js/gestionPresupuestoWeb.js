@@ -5,6 +5,7 @@ function mostrarDatoenId(valor, id){
 }
 function mostrarGastoWeb(gastos, id){
     let contenedor = document.getElementById(id);
+    contenedor.innerHTML = "";
     for(let j = 0; j < gastos.length; j++)
     {
         let des = document.createElement("div");
@@ -200,24 +201,24 @@ function EditarHandleFormulario(){
     }
 }
 function filtrarGastosWeb(){
-    this.handleEvent = function(event){
+    let form = document.getElementById("formulario-filtrado")
+    form.addEventListener("submit", (event) => {
         event.preventDefault();
-        let form = event.currentTarget;
         let des = form.elements["formulario-filtrado-descripcion"].value;
-        let minVal = form.elements["formulario-filtrado-valor-minimo"].value;
-        let maxVal = form.elements["formulario-filtrado-valor-maximo"].value;
+        let minVal = Number(form.elements["formulario-filtrado-valor-minimo"].value);
+        let maxVal = Number(form.elements["formulario-filtrado-valor-maximo"].value);
         let  fechaDesde = form.elements["formulario-filtrado-fecha-desde"].value;
         let  fechaHasta = form.elements["formulario-filtrado-fecha-hasta"].value;
         let  etis = form.elements["formulario-filtrado-etiquetas-tiene"].value;
-        if(etis.length != null)
+        if(etis.length > 0)
         {
             etis = GP.transformarListadoEtiquetas(form.elements["formulario-filtrado-etiquetas-tiene"].value)
         }
         let resul = GP.filtrarGastos({fechaDesde : fechaDesde, fechaHasta : fechaHasta, valorMinimo : minVal, valorMaximo : maxVal, 
                             descripcionContiene : des, etiquetasTiene : etis})
         
-        mostrarGastoWeb("listado-gastos-completo", resul)
-    }
+        mostrarGastoWeb(resul, "listado-gastos-completo")  
+    })
 }
 export{
     mostrarDatoenId,
