@@ -221,11 +221,19 @@ function filtrarGastosWeb(){
     })
 }
 function guardarGastoWeb(){
+    let btn = document.getElementById("guardar-gastos");
+    btn.addEventListener("click", (event) => {
+        let datos = GP.listarGastos();
+        localStorage.setItem("GestorGastosDWEC", JSON.stringify(datos));
+    })
+}
+function cargarGastosWeb(){
     
 }
 export{
     mostrarDatoenId,
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb,
-    filtrarGastosWeb
+    filtrarGastosWeb,
+    guardarGastoWeb
 }
