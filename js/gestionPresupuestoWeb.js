@@ -228,12 +228,18 @@ function guardarGastoWeb(){
     })
 }
 function cargarGastosWeb(){
-    
+    let btn = document.getElementById("cargar-gastos")
+    let gastos = localStorage.getItem("GestorGastosDWEC"); 
+    btn.addEventListener("click", (event) => {
+        GP.cargarGastos(gastos);
+        repintar();
+    })
 }
 export{
     mostrarDatoenId,
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb,
     filtrarGastosWeb,
-    guardarGastoWeb
+    guardarGastoWeb,
+    cargarGastosWeb
 }
