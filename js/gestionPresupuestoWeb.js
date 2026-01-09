@@ -220,6 +220,9 @@ function filtrarGastosWeb(){
         mostrarGastoWeb(resul, "listado-gastos-completo")  
     })
 }
+function guardarGastoWeb(){
+    
+}
 export{
     mostrarDatoenId,
     mostrarGastoWeb,
