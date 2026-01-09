@@ -229,9 +229,12 @@ function guardarGastoWeb(){
 }
 function cargarGastosWeb(){
     let btn = document.getElementById("cargar-gastos")
-    let gastos = localStorage.getItem("GestorGastosDWEC"); 
     btn.addEventListener("click", (event) => {
-        GP.cargarGastos(gastos);
+        let gastos = localStorage.getItem("GestorGastosDWEC"); 
+        let newGastos = JSON.parse(gastos);
+        if(newGastos === null)
+            newGastos = [];
+        GP.cargarGastos(newGastos);
         repintar();
     })
 }
